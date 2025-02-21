@@ -1,19 +1,16 @@
-<!-- SPDX-FileCopyrightText: Copyright 2025 Clever Design (Switzerland) GmbH ; SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-TinyBus-Software-1.0 -->
+<!-- SPDX-FileCopyrightText: Copyright 2025 Clever Design (Switzerland) GmbH ;
+SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-TinyBus-Software-1.0 -->
 
-TinyBus is a component to build a message borker architecture on embedded devices.
+Need a message broker on your embedded device? TinyBus is a library built on
+20 years of microcontroller project experience, designed to make this a reality.
 
-## Get Started
+## Status
 
-### Documentation
+This project is in early development.  It's not finished yet, but we're
+making progress!
 
-(work in progress)
-
-## License
-
-You can use TinyBus under ***any*** of the following licenses, at your choice:
-
-1. Build open source embedded applications for free with the [GNU GPLv3](LICENSES/GPL-3.0-only.txt),
-2. Build proprietary embedded applications with the [Paid license](LICENSES/LicenseRef-TinyBus-Software-1.0.md).
+Want to know when it's ready?  Click the "Watch" button in the top right
+to be notified of updates.
 
 ## Contributions
 
