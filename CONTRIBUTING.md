@@ -11,7 +11,7 @@ and more.  This document outlines the guidelines we ask contributors to follow.
 2. **Clone your fork:** Clone your forked repository to your local machine:
 
 ```bash
-   git clone [https://github.com/tinybus/tinybus.esp.git](https://github.com/tinybus/tinybus.esp.git)
+   git clone https://github.com/tinybus/tinybus.esp.git
 ```
 
 3.  **Create a branch:** Create a new branch for your contribution.  Use a descriptive name that reflects the purpose of your changes:
@@ -20,7 +20,7 @@ and more.  This document outlines the guidelines we ask contributors to follow.
     git checkout -b feature/new-feature
 ```
 
-    or
+or
 
 ```bash
     git checkout -b bugfix/fix-issue-123  # Replace 123 with the issue number
@@ -52,7 +52,7 @@ and more.  This document outlines the guidelines we ask contributors to follow.
 
 ## License
 
-By contributing to TinyBus, you agree that your contributions will be licensed under the [LICENSE](https://github.com/tinybus/tinybus.esp/blob/master/LICENSE)
+By contributing to TinyBus, you agree that your contributions will be licensed under the [LICENSE](https://github.com/tinybus/tinybus.esp/blob/master/LICENSE.md)
 
 ## Questions?
 
