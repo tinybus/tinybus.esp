@@ -5,8 +5,7 @@ description: "TinyBus Library - The Smallest Message Broker for Microcontrollers
 version: "1.0.0"
 license: "GPL-3.0-only OR LicenseRef-TinyBus-Software-3.0"
 url: "https://tinybus.dev"
-documentation: "https://tinybus.dev/docs"
-repository: "https://github.com/marcel-cd/tinybus.esp32"
+repository: "https://github.com/tinybus/tinybus.esp32"
 dependencies:
   idf: ">=5.0"
 tags:

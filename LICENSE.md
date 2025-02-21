@@ -9,5 +9,4 @@ You can use TinyBus under ***any*** of the following licenses, at your choice:
 
 Third party licenses listed in the `LICENSES` folder also apply to parts of the product.
 
-See the [TinyBus licensing options on the website](https://tinybus.dev/pricing.html) and the [Licensing FAQ](FAQ.md#licensing).
 Contact us at [info@tinybus.dev](mailto:hello@tinybus.dev) if you have any questions regarding licensing.
