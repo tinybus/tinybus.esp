@@ -1,0 +1,62 @@
+menu "TinyBus configurationttle"
+
+    config TINYBUS_MAX_SUBSCRIBERS
+        int "Maximum nuber of subscriber to the Tiny Bus"
+        default 64
+        range 1 253
+        help
+            In the TinyBus, only static memory allocation has been used,
+            therefore we need to know the maximum number of subscribers.
+
+            Subscribers take up a certain amount of memory for holding
+            the pointers to the state table.
+
+    config TINYBUS_MAX_BACKLOG
+        int "Maximum nuber of Events, we can keep in the ringbuffer"
+        default 16
+        range 1 253
+        help
+            Internally we use a FreeRTOS Queue for the backlog of Events.
+            We use static allocation for the queue.
+
+            Every Event needs a certain amount of memory (see Event class)
+
+    choice TINYBUS_MALLOC_STRATEGY
+        prompt "Buffer allocation strategy"
+        default TINYBUS_MALLOC_STRATEGY_DEFAULT
+        help
+            Maps lfs_malloc to ESP-IDF capabilities-based memory allocator or
+            disables dynamic allocation in favour of user-provided static buffers.
+
+        config TINYBUS_MALLOC_STRATEGY_DISABLE
+            bool "Static buffers only"
+            help
+                Disallow dynamic allocation, static buffers must be provided by the calling application.
+
+        config TINYBUS_MALLOC_STRATEGY_DEFAULT
+            bool "Default heap selection"
+            help
+                Uses an automatic allocation strategy. On systems with heap in SPIRAM, if
+                the allocation size does not exceed SPIRAM_MALLOC_ALWAYSINTERNAL then internal
+                heap allocation if preferred, otherwise allocation will be attempted from SPIRAM
+                heap.
+
+        config TINYBUS_MALLOC_STRATEGY_INTERNAL
+            bool "Internal heap"
+            help
+                Uses ESP-IDF heap_caps_malloc to allocate from internal heap.
+
+        config TINYBUS_MALLOC_STRATEGY_SPIRAM
+            bool "SPIRAM heap"
+            depends on SPIRAM_USE_MALLOC && ESP32_SPIRAM_SUPPORT
+            help
+                Uses ESP-IDF heap_caps_malloc to allocate from SPIRAM heap.
+
+    endchoice
+
+    config TINYBUS_ASSERTS
+        bool "Enable asserts"
+        default "y"
+        help
+            Selects whether tinybus performs runtime assert checks.
+endmenu

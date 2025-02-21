@@ -1,0 +1,19 @@
+# SPDX-FileCopyrightText: Copyright 2025 Clever Design (Switzerland) GmbH
+# SPDX-License-Identifier: GPL-3.0-only OR OR LicenseRef-TinyBus-Software-1.0
+
+description: "TinyBus Library - The Smallest Message Broker for Microcontrollers?"
+version: "1.0.0"
+license: "GPL-3.0-only OR LicenseRef-TinyBus-Software-3.0"
+url: "https://tinybus.dev"
+documentation: "https://tinybus.dev/docs"
+repository: "https://github.com/marcel-cd/tinybus.esp32"
+dependencies:
+  idf: ">=5.0"
+tags:
+  - architecture
+files:
+  exclude:
+    - "docs"
+    - "docs/**/*"
+    - "test"
+    - "test/**/*"
