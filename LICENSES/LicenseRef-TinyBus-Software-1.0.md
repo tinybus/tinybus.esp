@@ -4,13 +4,11 @@ Version 1.0.0
 
 ## Preamble
 
-TinyBus is a toolkit that can be used to build user interfaces for applications. TinyBus (hereafter referred to as **Software**) is made available under different licenses by Clever Design GmbH incorporated at Studenstrasse 16, 8844 Euthal, Switzerland (**Clever Design**). The **TinyBus Software License** is suitable for those who do not want to use open source components under copyleft licenses.
+TinyBus is a library to use a message broker architecture in embedded software. TinyBus (hereafter referred to as **Software**) is made available under different licenses by Clever Design GmbH incorporated at Studenstrasse 16, 8844 Euthal, Switzerland (**Clever Design**). The **TinyBus Software License** is suitable for those who do not want to use open source components under copyleft licenses.
 
 ## 1. Grant of Rights
 
 Clever Design hereby grants You a world-wide, non-exclusive license to use, reproduce, make available, modify, display, perform, distribute the Software as part of an Embedded System.
-
-An **Embedded System** is a computer system designed to perform a specific task within a larger mechanical or electrical system.
 
 ## 2. License Conditions
 
@@ -24,7 +22,7 @@ The grant of rights in section 1 are conditional, provided that You do all of th
 
 The License does not permit to distribute or make the Software publicly available alone and without integration into an Application or into an Embedded System. For this purpose you may use the Software under the GNU General Public License, version 3.
 
-The License is limited to only the versions of Software that were made available to you under the purchased Pricing Plan. For all other versions, you may use the Software under either the GNU General Public License, version 3 or the TinyBus Royalty-free Desktop, Mobile, and Web Applications License.
+The License is limited to only the versions of Software that were made available to you under the purchased Pricing Plan. For all other versions, you may use the Software under either the GNU General Public License.
 
 The License does not permit the distribution of Application that exposes the APIs, in part or in total, of the Software.
 
@@ -54,7 +52,7 @@ In the event that any provision of this License will, for any reason, be determi
 
 ## 8. Governing Law
 
-This Agreement shall be construed, interpreted, and governed by the laws of the Federal Republic of Germany.
+This Agreement shall be construed, interpreted, and governed by the laws of the Federal Republic of Switzerland.
 
 ## Annex 1: Paid License Plans
 
@@ -64,32 +62,10 @@ The following is included as part of the plan
 
 (a) No restriction on the number of applications that are developed with TinyBus.
 
-(b) Live Preview.
-
-(c) Standard Support that includes addressing technical queries, troubleshooting, and rectifying bugs or errors (faults) present in the latest official stable release.
-
-(d) Perpetual Fallback License that allows continued use of a specific TinyBus version, including all bugfix updates (i.e., all Z releases within the X.Y.Z version), without an active subscription. This license applies only to those versions of TinyBus for which at least 12 consecutive months of subscription have been paid.
-
-(e) GUI Test Framework.
-
-### Small Enterprise Plan
-
-This plan is limited to individual companies with a staff headcount between 10 and 50 and either a turnover or balance sheet total of 10 million EUR or less.
-
-The following is included as part of the plan
-
-(a) No restriction on the number of applications that are developed with TinyBus.
-
-(b) Live Preview.
-
-(c) Standard Support that includes addressing technical queries, troubleshooting, and rectifying bugs or errors (faults) present in the latest official stable release.
+(b) Standard Support that includes addressing technical queries, troubleshooting, and rectifying bugs or errors (faults) present in the latest official stable release.
 
 ### Startup & Individual Plan
 
-This plan is limited to individuals and individual companies with a staff headcount of less than 10 and either a turnover or balance sheet total of 2 million EUR or less.
-
 The following is included as part of the plan
 
 (a) No restriction on the number of applications that are developed with TinyBus.
-
-(b) Live Preview.
