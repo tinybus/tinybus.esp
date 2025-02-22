@@ -11,6 +11,8 @@
  */
 
 #include "tinybus.hpp"
+#include "tb_config.hpp"
+#include <cstring>
 
 namespace {
 extern "C" void ebTask(void *aParameters) {
@@ -20,25 +22,26 @@ extern "C" void ebTask(void *aParameters) {
 
 namespace tb {
 
-bool handleEvent(const TinyBus::Subscriber *apSubscriber, Event &arEvent) {
+bool handleEvent(const Subscriber *apSubscriber, Event &arEvent) {
   uint8_t i;
   bool eventHandled = false;
 
-  for (i = 0; i < apSubscriber->eventCount; i++) {
-    const StateTableRow *row = &apSubscriber->stateTable[i];
+  for (i = 0; i < apSubscriber->tableRowCount; i++) {
+    const StateTableRow *row = &apSubscriber->table[i];
     if ((arEvent.event == row->event) &&
         ((apSubscriber->currentState == row->state) ||
          (row->state == TB_STATE_ANY)) &&
-        ((row->conditionFn == nullptr || (row->conditionFn)()))) {
+        ((row->conditionCheck == nullptr || (row->conditionCheck)()))) {
 
       // call exit action from last state (only, if the next state is new)
-      if (apSubscriber->exitFn != nullptr && row->nextState != TB_STATE_KEEP) {
-        (apSubscriber->exitFn)(&arEvent);
+      if (apSubscriber->exitAction != nullptr &&
+          row->nextState != TB_STATE_KEEP) {
+        (apSubscriber->exitAction)(&arEvent);
       }
 
       // call entry action from new state
-      if (row->entryFn != nullptr) {
-        (row->entryFn)(&arEvent);
+      if (row->entryAction != nullptr) {
+        (row->entryAction)(&arEvent);
       }
 
       // set current state
@@ -48,7 +51,7 @@ bool handleEvent(const TinyBus::Subscriber *apSubscriber, Event &arEvent) {
 
       // set exit action for next state (only, if the next state is new)
       if (row->nextState != TB_STATE_KEEP) {
-        *(StateActionFn *)apSubscriber->exitFn = row->exitFn;
+        *(StateActionFn *)apSubscriber->exitAction = row->exitAction;
       }
       eventHandled = true;
       // break if needed
@@ -61,10 +64,12 @@ bool handleEvent(const TinyBus::Subscriber *apSubscriber, Event &arEvent) {
   return eventHandled;
 }
 
-extern "C" tbError tb_subscribe(const char *pSubscriberName,
-                                const StateTableRow *apStateTable,
-                                size_t aCount) {
-  return TinyBus::Instance().Subscribe(pSubscriberName, apStateTable, aCount);
+extern "C" tbError tb_subscribe(Subscriber *apSubscriber) {
+  return TinyBus::Instance().Subscribe(apSubscriber);
+}
+
+extern "C" tbError tb_publish(const Event *apEvent) {
+  return TinyBus::Instance().Publish(apEvent);
 }
 
 void TinyBus::RunMainLoop() {
@@ -73,43 +78,64 @@ void TinyBus::RunMainLoop() {
     while (xQueueReceive(mBacklogQueue, &event, portMAX_DELAY) != pdPASS) {
     }
     bool eventHandled = false;
-    for (size_t i = 0; i < mSubscriberCont; i++) {
+    for (size_t i = 0; i < mSubscriberCount; i++) {
       eventHandled |= handleEvent(mpSubscriber[i], event);
+    }
+    // Free event slot
+    if (event.data != NULL) {
+      tb_free((uint8_t *)event.data);
+      event.data = NULL;
+    }
+    if (!eventHandled) {
+      TB_WARN("No match for event '%s' found", event.event);
     }
   }
 }
 
 TinyBus::TinyBus() {
   // initialize event matrix
-  mSubscriberCont = 0;
-  for (int i = 0; i < CONFIG_TINYBUS_MAX_SUBSCRIBERS; i++) {
-    mpSubscriber[i] = nullptr;
-  }
+  mSubscriberCount = 0;
+  mpSubscriber = (Subscriber **)tb_malloc(CONFIG_TINYBUS_MAX_SUBSCRIBERS *
+                                          sizeof(Subscriber *));
   // create event queue
   mBacklogQueue = xQueueCreate(CONFIG_TINYBUS_MAX_BACKLOG, sizeof(Event));
 
   xTaskCreate(ebTask, "eb_main", 2048, this, 1, nullptr);
 }
 
-void TinyBus::Publish() {}
-tbError TinyBus::Subscribe(const char *apSubscriberName,
-                           const StateTableRow *apStateTable,
-                           const size_t aCount) {
-  if (mSubscriberCont == 0) {
-    // nothing to do
+tbError TinyBus::Publish(const Event *apEvent) {
+  // we need to copy the data within the event to the heap
+  // it will be freed, after the event is processed
+  void *dataCopy = tb_malloc(apEvent->dataLen);
+  memcpy(dataCopy, apEvent->data, apEvent->dataLen);
+  Event event = {
+      .event = apEvent->event, .data = dataCopy, .dataLen = apEvent->dataLen};
+  // FreeRTOS queue makes a copy of the data, it's save to use
+  // a local variable (event)
+  xQueueSendToBack(mBacklogQueue, &event, (TickType_t)10);
+
+  return tbError::TB_ERROR_NONE;
+}
+
+tbError TinyBus::Subscribe(Subscriber *apSubscriber) {
+  if (apSubscriber == NULL || apSubscriber->tableRowCount == 0) {
+    TB_DEBUG("Subscriber NULL");
     return tbError::TB_ERROR_NONE;
   }
-  if (mSubscriberCont + aCount > CONFIG_TINYBUS_MAX_SUBSCRIBERS) {
-    // ASSERT(false);
+  if (apSubscriber->tableRowCount == 0) {
+    TB_DEBUG("tableRowCount == 0");
+    return tbError::TB_ERROR_NONE;
+  }
+  // test if we have slots left
+  if (mSubscriberCount + 1 >= CONFIG_TINYBUS_MAX_SUBSCRIBERS) {
+    TB_ERROR("Max count for subscribers reached");
     return tbError::TB_ERROR_SUBSCRIBER_COUNT_EXCEEDED;
   }
-  *(int *)mpSubscriber[mSubscriberCont]->eventCount = aCount;
-  *(const StateTableRow **)mpSubscriber[mSubscriberCont]->stateTable =
-      apStateTable;
-  *(const char **)mpSubscriber[mSubscriberCont]->name = apSubscriberName;
-  mpSubscriber[mSubscriberCont]->currentState = TB_STATE_INITIAL;
+  mpSubscriber[mSubscriberCount] = apSubscriber;
+  mpSubscriber[mSubscriberCount]->currentState = TB_STATE_INITIAL;
+  mpSubscriber[mSubscriberCount]->exitAction = NULL;
 
-  mSubscriberCont++;
+  mSubscriberCount++;
   return tbError::TB_ERROR_NONE;
 };
 

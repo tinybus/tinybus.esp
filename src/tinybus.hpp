@@ -23,13 +23,6 @@ namespace tb {
  */
 class TinyBus {
 public:
-  struct Subscriber {
-    const char *const name;
-    const StateTableRow *const stateTable;
-    const size_t eventCount;
-    const char *currentState;
-    const StateActionFn exitFn;
-  };
   /** @brief Get the instance of the TinyBus (singleton)class.
    *
    *  Get the instance of the TinyBus class.
@@ -45,9 +38,8 @@ public:
   TinyBus(const TinyBus &) = delete;
   TinyBus &operator=(const TinyBus &) = delete;
 
-  tbError Subscribe(const char *apName, const StateTableRow *apStateTable,
-                    size_t aCount);
-  void Publish();
+  tbError Subscribe(Subscriber *apSubscriber);
+  tbError Publish(const Event *apEvent);
 
 private:
   // private constructor for singleton class
@@ -55,8 +47,8 @@ private:
   // private destructor for singleton class
   ~TinyBus() {}
 
-  Subscriber *mpSubscriber[CONFIG_TINYBUS_MAX_SUBSCRIBERS];
-  size_t mSubscriberCont;
+  Subscriber **mpSubscriber;
+  size_t mSubscriberCount;
   QueueHandle_t mBacklogQueue;
 };
 } // namespace tb
