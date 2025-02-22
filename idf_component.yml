@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: Copyright 2025 Clever Design (Switzerland) GmbH
 # SPDX-License-Identifier: GPL-3.0-only OR OR LicenseRef-TinyBus-Software-1.0
-version: "1.0.2"
+version: "1.0.3"
 description: "TinyBus Library - The Smallest State Machine - Message Broker for Microcontrollers?"
 license: "GPL-3.0-only OR LicenseRef-TinyBus-Software-1.0"
 repository: "https://github.com/tinybus/tinybus.esp"

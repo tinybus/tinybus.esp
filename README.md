@@ -2,9 +2,11 @@
 SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-TinyBus-Software-1.0 -->
 # TinyBus
 
-TinyBus is a lightweight library that combines a **state machine** for managing system behavior with a **message broker** for inter-component communication. This approach enhances modularity and simplifies the development of complex embedded systems. Based on 20+ years of experience developing microcontroller projects (ESP32, STM32, nRF) with frameworks like ESP-IDF and Zephyr, TinyBus offers a proven and scalable architecture.
+TinyBus is a lightweight library that combines a **state machine** for managing system behavior with a **message broker** for inter-component communication. This approach enhances modularity and simplifies the development of complex embedded systems. Based on 20+ years of experience developing microcontroller projects (ESP32, STM32, nRF) with frameworks like ESP-IDF and Zephyr, TinyBus offers a proven and scalable architecture.  
 
-This repository provides the **ESP-IDF implementation**, which can be installed via the Espressif Component Registry or by cloning it into your components directory.
+This repository provides the **ESP-IDF implementation**, which can be installed via the Espressif Component Registry or by cloning it into your components directory.  
+
+- Espressif Component Registry: [marcel-cd/tinybus](https://components.espressif.com/components/marcel-cd/tinybus/)
 
 ## How It Works
 
