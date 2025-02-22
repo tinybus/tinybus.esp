@@ -22,7 +22,7 @@ TB_EVENT_NAME(MAIN, HELLO_WORLD, "HelloWorld");
 // 2. Declare the actions using in the state table
 static void onHelloWorld(Event *apEvent);
 
-// 3. Glue everything togehter
+// 3. Glue everything together
 static const StateTableRow stateTable[] = {{
     .state = TB_STATE_INITIAL, // only process the event, if the current state
                                // match. TB_STATE_INITIAL is the default state.

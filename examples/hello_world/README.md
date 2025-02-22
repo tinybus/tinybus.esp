@@ -14,17 +14,13 @@ make linux
 ## Code  
 
 ``` c
-/*****************************************************************************
- * Tiny Bus Definitions for the main Module
- *****************************************************************************/
-
 // 1. Define the events using in the state table
 TB_EVENT_NAME(MAIN, HELLO_WORLD, "HelloWorld");
 
 // 2. Declare the actions using in the state table
 static void onHelloWorld(Event *apEvent);
 
-// 3. Glue everything togehter
+// 3. Glue everything togther
 static const StateTableRow stateTable[] = {{
     .state = TB_STATE_INITIAL, // only process the event, if the current state
                                // match. TB_STATE_INITIAL is the default state.
@@ -38,9 +34,19 @@ static const StateTableRow stateTable[] = {{
     .stop = true // Stop processing after this entry (this is the default case)
 }};
 
-/*****************************************************************************/
-// Implement the Actions
+// Implement Action
 static void onHelloWorld(Event *apEvent) {
   ESP_LOGI(TAG, "Action onHellowWorld() called from TinyBus");
+}
+
+void app_main() {
+  ESP_LOGI(TAG, "Subscribe module '%s' to TinyBus", TAG);
+  tb_subscribe(TB_SUBSCRIBER(TAG, stateTable, TB_TABLE_ROW_COUNT(stateTable)));
+
+  while (true) {
+    ESP_LOGI(TAG, "Publish HELLO_WORLD event");
+    tb_publish(TB_EVENT(MAIN_EVENT_HELLO_WORLD, NULL, 0));
+    vTaskDelay(5000 / portTICK_PERIOD_MS);
+  }
 }
 ```
