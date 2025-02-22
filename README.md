@@ -101,7 +101,7 @@ static void onButtonPress(Event *apEvent) {
 
 We welcome contributions in the form of code, bug reports, and feedback.
 
-- See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+- See [CONTRIBUTING.md](https://github.com/tinybus/tinybus.esp/blob/main/CONTRIBUTING.md) for guidelines.
 
 ## Contact
 
