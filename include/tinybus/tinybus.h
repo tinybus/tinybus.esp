@@ -22,9 +22,9 @@ const char *const TB_STATE_KEEP = "TB_keep";
 
 // Macro for genereting a const char* from a string literal
 #define TB_EVENT_NAME(tag, name, value)                                        \
-  const char *const TB_##tag##_EVENT_##name = value;
+  const char *const tag##_EVENT_##name = value;
 #define TB_STATE_NAME(tag, name, value)                                        \
-  const char *const TB_##tag##_STATE_##name = value;
+  const char *const tag##_STATE_##name = value;
 #define TB_EVENT(event, data, len) (&(Event){event, data, len})
 #define TB_SUBSCRIBER(module, table, tableRowCount)                            \
   (&(Subscriber){module, table, tableRowCount, NULL, NULL})
