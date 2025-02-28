@@ -5,7 +5,7 @@
 TARGET := esp32s3
 
 # import settings for the used ESP-IDF
-include ../make/makefile-524.mk
+include ../etc/make/makefile-524.mk
 
 # targets
 # ---------------------------------------------------------------------------

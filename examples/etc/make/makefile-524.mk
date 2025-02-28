@@ -16,4 +16,5 @@ PATH := $(IDF_BUILD)/python_env/${IDF_PY}_env/bin:$(PATH)
 
 IDFPY := ${IDF_PATH}/tools/idf.py
 
-include ../make/makefile.mk
+mydir := $(dir $(lastword $(MAKEFILE_LIST)))
+include ${mydir}/makefile.mk

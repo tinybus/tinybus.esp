@@ -10,7 +10,9 @@ else
   RMDIR = rm -rf
 endif
 
+mydir := $(dir $(lastword $(MAKEFILE_LIST)))
+
 .PHONY: help
 help:
 	@$(AWK) $(AWK_FLAGS) \
-		-f ../make/makefile-doc.awk $(MAKEFILE_LIST)
+		-f ${mydir}/makefile-doc.awk $(MAKEFILE_LIST)
