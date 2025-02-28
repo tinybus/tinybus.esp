@@ -9,7 +9,7 @@
 #define TB_TINYBUS_HPP
 
 #include "tb_config.hpp"
-#include <tinybus/tinybus.h>
+#include "tinybus/tinybus.h"
 
 namespace tb {
 
@@ -21,35 +21,37 @@ namespace tb {
  *  embedded systems with limited resources. The class uses a static
  *  memory allocation for the event queue and the state table
  */
-class TinyBus {
+class TinyBus
+{
 public:
-  /** @brief Get the instance of the TinyBus (singleton)class.
-   *
-   *  Get the instance of the TinyBus class.
-   *
-   *  @return The instance of the TinyBus class.
-   */
-  static TinyBus &Instance() {
-    static TinyBus sInstance;
-    return sInstance;
-  }
-  void RunMainLoop();
+    /** @brief Get the instance of the TinyBus (singleton)class.
+     *
+     *  Get the instance of the TinyBus class.
+     *
+     *  @return The instance of the TinyBus class.
+     */
+    static TinyBus &Instance()
+    {
+        static TinyBus sInstance;
+        return sInstance;
+    }
+    void RunMainLoop();
 
-  TinyBus(const TinyBus &) = delete;
-  TinyBus &operator=(const TinyBus &) = delete;
+    TinyBus(const TinyBus &)            = delete;
+    TinyBus &operator=(const TinyBus &) = delete;
 
-  tbError Subscribe(Subscriber *apSubscriber);
-  tbError Publish(const Event *apEvent);
+    tbError Subscribe(Subscriber *apSubscriber);
+    tbError Publish(const Event *apEvent);
 
 private:
-  // private constructor for singleton class
-  TinyBus();
-  // private destructor for singleton class
-  ~TinyBus() {}
+    // private constructor for singleton class
+    TinyBus();
+    // private destructor for singleton class
+    ~TinyBus() {}
 
-  Subscriber **mpSubscriber;
-  size_t mSubscriberCount;
-  QueueHandle_t mBacklogQueue;
+    Subscriber  **mpSubscriber;
+    size_t        mSubscriberCount;
+    QueueHandle_t mBacklogQueue;
 };
 } // namespace tb
 
