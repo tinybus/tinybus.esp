@@ -6,7 +6,7 @@ TinyBus is a lightweight library that combines a **state machine** for managing 
 
 This repository provides the **ESP-IDF implementation**, which can be installed via the Espressif Component Registry or by cloning it into your components directory.  
 
-- Espressif Component Registry: [marcel-cd/tinybus](https://components.espressif.com/components/marcel-cd/tinybus/)
+Espressif Component Registry: [marcel-cd/tinybus](https://components.espressif.com/components/marcel-cd/tinybus/)
 
 ## How It Works
 
